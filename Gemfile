@@ -47,6 +47,8 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "foreman", require: false
+  gem "pry"
+  gem "pry-nav"
 end
 
 group :test do
@@ -90,5 +92,8 @@ gem "image_processing", "~> 1.10"
 
 gem "administrate", "~> 0.16"
 
+gem "aws-sdk-s3", require: false
+
+gem "active_model_serializers"
 # Error monitoring for Rails
 gem "honeybadger", "~> 4.6"
