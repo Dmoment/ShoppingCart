@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "../../Button";
 
 const TableRow = ({ data }) => {
   return (
@@ -7,10 +8,49 @@ const TableRow = ({ data }) => {
       {data.map(rowData => (
         <tr key={rowData.id}>
           <td
-            className="block w-64 px-6 py-4 text-sm font-medium
+            className="w-64 px-6 py-2 text-sm font-medium
             leading-8 text-bb-purple capitalize truncate"
           >
-            {rowData.title}
+            <img src={rowData.image_url} alt=""></img>
+          </td>
+          <td
+            className="block w-64 px-6 py-2 text-sm font-medium
+            leading-8 text-bb-purple capitalize truncate"
+          >
+            <div className="text-lg text-black font-sans font-semibold inline-flex">
+              Product:
+            </div>
+            <div className="px-6 text-lg font-sans font-semibold inline-flex">
+              {rowData.name}
+            </div>
+          </td>
+          <td
+            className="block w-64 px-6 py-2 text-sm font-medium
+            leading-8 text-bb-purple capitalize truncate"
+          >
+            <div className="text-lg text-black font-sans font-semibold inline-flex">
+              Price:
+            </div>
+            <div className="px-6 text-lg font-sans font-semibold inline-flex">
+              {rowData.price}$
+            </div>
+          </td>
+          <td
+            className="block w-64 px-6 py-2 text-sm font-medium
+            leading-8 text-bb-purple capitalize truncate"
+          >
+            <div className="text-lg text-black font-sans font-semibold inline-flex">
+              Description:
+            </div>
+            <div className=" font-sans font-semibold ">
+              {rowData.description}
+            </div>
+          </td>
+          <td
+            className="block w-64 px-6 py-2 text-sm font-medium
+            leading-8 text-bb-purple capitalize truncate"
+          >
+            <Button buttonText="Add to cart" />
           </td>
         </tr>
       ))}

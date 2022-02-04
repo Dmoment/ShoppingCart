@@ -37,6 +37,9 @@ group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails"
   gem "faker"
+  gem "rspec-rails"
+  gem "pry"
+  gem "pry-nav"
 end
 
 group :development do
@@ -90,5 +93,8 @@ gem "image_processing", "~> 1.10"
 
 gem "administrate", "~> 0.16"
 
+gem "aws-sdk-s3", require: false
+
+gem "active_model_serializers"
 # Error monitoring for Rails
 gem "honeybadger", "~> 4.6"
