@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: :index
+  resources :cart_items, only: :create
+  resources :carts, only: :show
 
   root to: "dashboard#home"
   get "*path", to: "dashboard#home", via: :all
