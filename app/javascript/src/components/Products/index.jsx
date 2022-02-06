@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { isNil, isEmpty, either } from "ramda";
+import { useHistory } from "react-router-dom";
 import productsApi from "../../apis/products";
+import cartItemsApi from "../../apis/cart_items";
 import PageLoader from "../PageLoader";
 import Container from "../Container";
 import Table from "../Tasks/Table/index";
+import CartIcon from "./CartIcon";
+import { setToLocalStorage, getFromLocalStorage } from "../../helpers/storage";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const cartId = getFromLocalStorage("cartId");
+  const history = useHistory();
+  let cartIcon;
 
   const fetchProducts = async () => {
     try {
@@ -21,9 +28,23 @@ const Products = () => {
     }
   };
 
+  const addToCart = async product_id => {
+    try {
+      const response = await cartItemsApi.create({ product_id: product_id });
+      setToLocalStorage({ cart_id: response.data.cart_id });
+      showCart(response.data.cart_id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const showCart = id => {
+    history.push(`/carts/${id}/show`);
+  };
 
   if (loading) {
     return (
@@ -43,9 +64,22 @@ const Products = () => {
     );
   }
 
+  if (either(isNil, isEmpty)(cartId)) {
+    cartIcon = "Your cart is empty. Please add products";
+  } else {
+    cartIcon = (
+      <CartIcon
+        iconClass={"ri-shopping-cart-line ri-2x"}
+        name="Your Cart"
+        path={`/carts/${cartId}/show`}
+      />
+    );
+  }
+
   return (
     <Container>
-      <Table data={products} />
+      <div className="flex justify-end">{cartIcon}</div>
+      <Table data={products} showCart={showCart} addToCart={addToCart} />
     </Container>
   );
 };

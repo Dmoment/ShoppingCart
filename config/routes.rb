@@ -47,8 +47,15 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: :index
-  resources :cart_items, only: :create
-  resources :carts, only: :show
+
+  resources :carts, only: %i[show destroy]
+
+  resources :cart_items do
+    member do
+      put :increment_quantity
+      put :decrement_quantity
+    end
+  end
 
   root to: "dashboard#home"
   get "*path", to: "dashboard#home", via: :all

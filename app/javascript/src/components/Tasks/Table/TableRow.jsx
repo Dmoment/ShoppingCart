@@ -1,52 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import Button from "../../Button";
-import cartItemsApi from "../../../apis/cart_items";
 import classnames from "classnames";
 
-const TableRow = ({ data }) => {
-  const [isProductAdded, setIsProductAdded] = useState(false);
-  let button;
-  const addToCart = async product_id => {
-    try {
-      await cartItemsApi.create({ product_id: product_id });
-      setIsProductAdded(true);
-      console.log("Cart item created");
-    } catch (error) {
-      setIsProductAdded(true);
-      console.log(error);
-    }
-  };
-
-  // const addToCartButton = (product_id) => {
-  //   return (
-  //     <button
-  //       type="button"
-  //       className="relative flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out  border border-transparent rounded-md group hover:bg-opacity-90 focus:outline-none bg-bb-purple"
-  //       onClick={async () => await addToCart(product_id)}
-  //     >
-  //       Add to cart
-  //     </button>
-  //   );
-  // };
-
-  // const removeFromCartButton = (product_id) => {
-  //   return (
-  //     <button
-  //       type="button"
-  //       className="relative flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out  border border-transparent rounded-md group hover:bg-opacity-90 focus:outline-none bg-bb-purple"
-  //     >
-  //       Remove from cart
-  //     </button>
-  //   );
-  // };
-
-  // if (isProductAdded) {
-  //   button = addToCartButton();
-  // } else {
-  //   button = removeFromCartButton();
-  // }
-
+const TableRow = ({ data, addToCart }) => {
   return (
     <tbody className="bg-white divide-y divide-gray-200">
       {data.map(rowData => (
@@ -103,7 +59,7 @@ const TableRow = ({ data }) => {
                   "bg-bb-gray-500 text-black": rowData.is_product_added_to_cart,
                 }
               )}
-              onClick={async () => await addToCart(rowData.id)}
+              onClick={() => addToCart(rowData.id)}
               disabled={rowData.is_product_added_to_cart}
             >
               {rowData.is_product_added_to_cart
@@ -119,6 +75,7 @@ const TableRow = ({ data }) => {
 
 TableRow.propTypes = {
   data: PropTypes.array.isRequired,
+  addToCart: PropTypes.func,
 };
 
 export default TableRow;

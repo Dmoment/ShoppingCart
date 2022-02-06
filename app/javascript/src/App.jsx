@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import { setAuthHeaders } from "./apis/axios";
+import { ToastContainer } from "react-toastify";
+import { setAuthHeaders, registerIntercepts } from "./apis/axios";
 import Products from "./components/Products";
+import Cart from "./components/Cart";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setAuthHeaders(setLoading);
+    registerIntercepts();
   }, []);
 
   if (loading) {
@@ -16,10 +19,12 @@ const App = () => {
 
   return (
     <Router>
+      <ToastContainer />
       <Switch>
-        <Route exact path="/" render={() => <div>Home</div>} />
+        <Route exact path="/" component={Products} />
         <Route exact path="/about" render={() => <div>About</div>} />
         <Route exact path="/items" component={Products} />
+        <Route exact path="/carts/:cart_id/show" component={Cart} />
       </Switch>
     </Router>
   );
