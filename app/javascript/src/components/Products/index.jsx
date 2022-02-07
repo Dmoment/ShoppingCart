@@ -19,11 +19,10 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       const response = await productsApi.list();
-      console.log(response.data);
       setProducts(response.data);
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -78,7 +77,7 @@ const Products = () => {
 
   return (
     <Container>
-      <div className="flex justify-end">{cartIcon}</div>
+      <div className="flex justify-end mt-4">{cartIcon}</div>
       <Table data={products} showCart={showCart} addToCart={addToCart} />
     </Container>
   );

@@ -17,11 +17,11 @@ const Cart = () => {
   const fetchCart = async () => {
     try {
       const response = await cartApi.show(cart_id);
-      setLoading(false);
       setCartTotal(response.data.cart_total);
       setCartItems(response.data.cart_items);
     } catch (error) {
       console.log(error);
+    } finally {
       setLoading(false);
     }
   };

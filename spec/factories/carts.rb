@@ -2,5 +2,7 @@
 
 FactoryBot.define do
   factory :cart do
+    id { 1 }
+    user
   end
 end

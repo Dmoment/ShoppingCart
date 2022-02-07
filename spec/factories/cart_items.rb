@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :line_item do
+  factory :cart_item do
     quantity { 1 }
-    product_id { 1 }
-    cart_id { 1 }
+    product
+    cart
   end
 end

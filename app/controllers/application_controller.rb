@@ -17,9 +17,17 @@ class ApplicationController < ActionController::Base
     def current_cart
       if session[:cart_id].present?
         @current_cart = Cart.find_by(id: session[:cart_id])
+      elsif current_user
+        if current_user.cart.present?
+          @current_cart = current_user.cart
+          session[:cart_id] = @current_cart.id
+        else
+          @current_cart = Cart.create(user_id: current_user.id)
+          session[:cart_id] = @current_cart.id
+        end
       else
-        @current_cart = Cart.create
-        session[:cart_id] = @current_cart.id
+        @current_cart = nil
+        session[:cart_id] = nil
       end
     end
 end

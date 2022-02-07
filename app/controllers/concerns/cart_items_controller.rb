@@ -21,12 +21,22 @@ class CartItemsController < ApplicationController
 
   def increment_quantity
     @cart_item.quantity += 1
-    @cart_item.save
+    if @cart_item.save
+      render status: :ok, json: { quantity: @cart_item.quantity }
+    else
+      render status: :unprocessable_entity,
+        json: { error: @cart_item.errors.full_messages.to_sentence }
+    end
   end
 
   def decrement_quantity
     @cart_item.quantity -= 1 if @cart_item.quantity > 1
-    @cart_item.save
+    if @cart_item.save
+      render status: :ok, json: { quantity: @cart_item.quantity }
+    else
+      render status: :unprocessable_entity,
+        json: { error: @cart_item.errors.full_messages.to_sentence }
+    end
   end
 
 
