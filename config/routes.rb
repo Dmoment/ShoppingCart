@@ -48,6 +48,15 @@ Rails.application.routes.draw do
 
   resources :products, only: :index
 
+  resources :carts, only: %i[show destroy]
+
+  resources :cart_items do
+    member do
+      put :increment_quantity
+      put :decrement_quantity
+    end
+  end
+
   root to: "dashboard#home"
   get "*path", to: "dashboard#home", via: :all
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

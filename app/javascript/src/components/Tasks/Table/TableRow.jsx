@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "../../Button";
+import classnames from "classnames";
 
-const TableRow = ({ data }) => {
+const TableRow = ({ data, addToCart }) => {
   return (
     <tbody className="bg-white divide-y divide-gray-200">
       {data.map(rowData => (
@@ -50,7 +50,22 @@ const TableRow = ({ data }) => {
             className="block w-64 px-6 py-2 text-sm font-medium
             leading-8 text-bb-purple capitalize truncate"
           >
-            <Button buttonText="Add to cart" />
+            <button
+              type="button"
+              className={classnames(
+                "relative flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out  border border-transparent rounded-md group hover:bg-opacity-90 focus:outline-none",
+                {
+                  "bg-bb-purple text-white": !rowData.is_product_added_to_cart,
+                  "bg-bb-gray-500 text-black": rowData.is_product_added_to_cart,
+                }
+              )}
+              onClick={() => addToCart(rowData.id)}
+              disabled={rowData.is_product_added_to_cart}
+            >
+              {rowData.is_product_added_to_cart
+                ? "Product is already in the cart"
+                : "Add to cart"}
+            </button>
           </td>
         </tr>
       ))}
@@ -60,6 +75,7 @@ const TableRow = ({ data }) => {
 
 TableRow.propTypes = {
   data: PropTypes.array.isRequired,
+  addToCart: PropTypes.func,
 };
 
 export default TableRow;

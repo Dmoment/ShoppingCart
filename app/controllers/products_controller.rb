@@ -3,7 +3,7 @@
 class ProductsController < ApplicationController
   def index
     # To avoid N+1 queries
-    @products = Product.all.with_attached_image
+    @products = Product.includes(:cart_items).all.with_attached_image
     render json: @products
   end
 end
