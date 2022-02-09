@@ -1,6 +1,8 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const TableFooter = ({ cartTotal }) => {
+  const history = useHistory();
   return (
     <tfoot>
       <tr>
@@ -18,6 +20,7 @@ const TableFooter = ({ cartTotal }) => {
           <button
             type="button"
             className="relative flex justify-center w-full px-4 py-2 text-sm bg-bb-purple text-white font-medium leading-5 transition duration-150 ease-in-out  border border-transparent rounded-md group hover:bg-opacity-90 focus:outline-none"
+            onClick={() => history.push("/placeorder")}
           >
             Place Order
           </button>

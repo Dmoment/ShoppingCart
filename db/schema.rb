@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,8 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_07_043032) do
-
+ActiveRecord::Schema.define(version: 2022_02_09_141250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -48,9 +49,10 @@ ActiveRecord::Schema.define(version: 2022_02_07_043032) do
   create_table "cart_items", force: :cascade do |t|
     t.integer "quantity", null: false
     t.integer "product_id", null: false
-    t.integer "cart_id", null: false
+    t.integer "cart_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -65,6 +67,15 @@ ActiveRecord::Schema.define(version: 2022_02_07_043032) do
     t.text "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.text "address", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "total_price", null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -97,7 +108,6 @@ ActiveRecord::Schema.define(version: 2022_02_07_043032) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
 end

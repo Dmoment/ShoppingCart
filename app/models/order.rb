@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+class Order < ApplicationRecord
+  has_many :cart_items, dependent: :destroy
+end
