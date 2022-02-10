@@ -30,11 +30,5 @@ RSpec.describe CartItem, type: :model do
         cart_item.update!(quantity: "")
       end.to raise_error("Validation failed: Quantity can't be blank")
     end
-
-    it "should raise an error" do
-      expect do
-        cart_item.update!(cart_id: "")
-      end.to raise_error("Validation failed: Cart must exist, Cart can't be blank")
-    end
   end
 end

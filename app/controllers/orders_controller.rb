@@ -2,7 +2,8 @@
 
 class OrdersController < ApplicationController
   def index
-    @orders = Order.includes(:cart_items)
+    @orders = current_user.orders
+    render status: :ok, json: { orders: @orders }
   end
 
   def show
@@ -16,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order::CreateOrderService.call(order_params, @current_cart, session[:cart_id])
+    @order = Order::CreateOrderService.call(order_params, @current_cart, session[:cart_id], current_user)
     if @order.persisted?
       dissociate_cart
       render status: :ok, json: { notice: "Your order is placed." }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import OrderApi from "../../apis/order";
 import OrderForm from "./OrderForm";
 import Container from "../Container";
@@ -7,6 +8,7 @@ const Order = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
+  const history = useHistory();
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -18,6 +20,7 @@ const Order = () => {
           address: address,
         },
       });
+      history.push("/orderlist");
     } catch (error) {
       console.log(error);
     }
