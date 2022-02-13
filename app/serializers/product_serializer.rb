@@ -10,6 +10,8 @@ class ProductSerializer < ActiveModel::Serializer
   end
 
   def is_product_added_to_cart
-    object.cart_items.present? ? true : false
+    current_cart = @instance_options.dig(:current_cart)
+    return false unless current_cart.present?
+    current_cart.products.include?(object) ? true : false
   end
 end

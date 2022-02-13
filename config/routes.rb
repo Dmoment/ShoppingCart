@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   resources :carts, only: %i[show destroy]
 
+  resources :orders, except: %i[destroy]
+
   resources :cart_items do
     member do
       put :increment_quantity
