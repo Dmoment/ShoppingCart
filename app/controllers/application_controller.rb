@@ -15,19 +15,9 @@ class ApplicationController < ActionController::Base
     end
 
     def current_cart
-      if session[:cart_id].present?
-        @current_cart = Cart.find_by(id: session[:cart_id]) # current cart will be fetched from session in already there
-      elsif current_user
-        if current_user.cart.present? # set current cart from current user's cart if already present
-          @current_cart = current_user.cart
-          session[:cart_id] = @current_cart.id
-        else
-          @current_cart = Cart.create(user_id: current_user.id)  # create new cart if both the above case fails
-          session[:cart_id] = @current_cart.id
-        end
-      else
-        @current_cart = nil # if not logged_in then make them nil
-        session[:cart_id] = nil
-      end
+      @cart = CurrentCart::SetCurrentCartService.call(session[:cart_id], current_user)
+      @cart.set_current_cart
+      @current_cart = @cart.current_cart
+      session[:cart_id] = @cart.cart_id
     end
 end

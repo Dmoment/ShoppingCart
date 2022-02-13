@@ -6,4 +6,9 @@ class ProductsController < ApplicationController
     @products = Product.includes(:cart_items).all.with_attached_image
     render json: @products, current_cart: @current_cart
   end
+
+  def current_cart_products
+    @products = @current_cart.products
+    render status: :ok, json: { products: @products }
+  end
 end
