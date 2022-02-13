@@ -21,14 +21,4 @@ class Product < ApplicationRecord
       errors.add :base,  "This product is currently being locked, Please refresh"
     end
   end
-
-
-  # def original_updated_at
-  #   self.original_updated_at || self.updated_at.to_f
-  # end
-
-  # def handle_conflict
-  #   if self.original_updated_at
-  #   binding.pry
-  # end
 end

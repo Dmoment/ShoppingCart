@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.includes(cart_items: [:product]).find(params[:id])
+    @order = Order.includes(cart_items: [:product]).find_by(id: params[:id])
     @products = @order.cart_items.map(&:product)
     if @order
       render status: :ok, json: { order: @order, products: @products }
