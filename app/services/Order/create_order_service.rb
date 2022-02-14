@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Order::CreateOrderService
-  attr_writer :order
-
   def initialize(order_params, current_cart, cart_id, current_user)
     @order_params = order_params
     @current_cart = current_cart
