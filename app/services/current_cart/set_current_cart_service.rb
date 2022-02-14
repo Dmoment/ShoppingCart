@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CurrentCart::SetCurrentCartService
-  attr_accessor :cart_id, :current_cart
+  attr_reader :cart_id, :current_cart
 
   def initialize(cart_id, current_user)
     @cart_id = cart_id
