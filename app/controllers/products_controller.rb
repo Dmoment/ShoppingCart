@@ -9,6 +9,6 @@ class ProductsController < ApplicationController
 
   def current_cart_products
     @products = @current_cart.products
-    render status: :ok, json: { products: @products }
+    render status: :ok, json: @products
   end
 end

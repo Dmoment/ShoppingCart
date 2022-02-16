@@ -11,6 +11,7 @@ class Product < ApplicationRecord
   validate :optimistic_locking_for_instock, on: :update
   before_update :increment_locking_version
 
+private
   def increment_locking_version
     self.locking_version += 1
   end
@@ -18,7 +19,7 @@ class Product < ApplicationRecord
   def optimistic_locking_for_instock
     if self.original_locking_version <  self.locking_version
       self.original_locking_version = nil
-      errors.add :base,  "This product is currently being locked, Please refresh"
+      raise ActiveRecord::StaleObjectError
     end
   end
 end

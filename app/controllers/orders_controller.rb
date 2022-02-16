@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order::CreateOrderService.call(order_params, @current_cart, session[:cart_id], current_user)
+    @order = Order::CreateOrderService.call(order_params, product_params, @current_cart, session[:cart_id], current_user)
     if @order.persisted?
       dissociate_cart
       render status: :ok, json: { notice: "Your order is placed." }
@@ -25,11 +25,17 @@ class OrdersController < ApplicationController
       errors = @order.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { error: errors  }
     end
+  rescue ActiveRecord::StaleObjectError
+    render status: :unprocessable_entity, json: { error: "Product is locked by other customer please place order again"  }
   end
 
   private
     def order_params
-      params.require(:order).permit(:name, :email, :address, products: {})
+      params.require(:order).permit(:name, :email, :address)
+    end
+
+    def product_params
+      params.require(:order).permit(products: [:id, :name, :locking_version])
     end
 
     def dissociate_cart
