@@ -3,10 +3,11 @@
 class Order::CreateOrderService
   attr_accessor :order
 
-  def initialize(order_params, current_cart, cart_id)
+  def initialize(order_params, current_cart, cart_id, current_user)
     @order_params = order_params
     @current_cart = current_cart
     @cart_id = cart_id
+    @current_user = current_user
   end
 
   def self.call(*args)
@@ -17,6 +18,7 @@ class Order::CreateOrderService
     build_order
     associate_cart_items
     insert_total_price
+    insert_user_to_order
     delete_cart if @order.save
     @order
   end
@@ -35,6 +37,10 @@ class Order::CreateOrderService
 
     def insert_total_price
       @order.total_price = @current_cart.cart_total
+    end
+
+    def insert_user_to_order
+      @order.user = @current_user
     end
 
     def delete_cart

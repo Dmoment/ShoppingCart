@@ -6,6 +6,7 @@ import Products from "./components/Products";
 import Cart from "./components/Cart";
 import Order from "./components/Orders";
 import ShowOrder from "./components/Orders/ShowOrder";
+import OrderList from "./components/Orders/OrderListing/OrderList";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ const App = () => {
         <Route exact path="/carts/:cart_id/show" component={Cart} />
         <Route exact path="/placeorder" component={Order} />
         <Route exact path="/orders/:order_id/show" component={ShowOrder} />
+        <Route exact path="/orderlist" component={OrderList} />
       </Switch>
     </Router>
   );

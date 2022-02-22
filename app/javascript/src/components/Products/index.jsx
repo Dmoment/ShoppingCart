@@ -77,7 +77,14 @@ const Products = () => {
 
   return (
     <Container>
-      <div className="flex justify-end mt-4">{cartIcon}</div>
+      <div className="flex justify-end mt-4">
+        {cartIcon}
+        <CartIcon
+          iconClass={"ri-file-list-3-line ri-2x"}
+          name="Order History"
+          path={"/orderlist"}
+        />
+      </div>
       <Table data={products} showCart={showCart} addToCart={addToCart} />
     </Container>
   );
