@@ -46,7 +46,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: :index
+  resources :products do
+    collection do
+      get :current_cart_products
+    end
+  end
 
   resources :carts, only: %i[show destroy]
 

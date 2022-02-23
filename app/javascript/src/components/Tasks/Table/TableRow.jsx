@@ -55,16 +55,24 @@ const TableRow = ({ data, addToCart }) => {
               className={classnames(
                 "relative flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out  border border-transparent rounded-md group hover:bg-opacity-90 focus:outline-none",
                 {
-                  "bg-bb-purple text-white": !rowData.is_product_added_to_cart,
-                  "bg-bb-gray-500 text-black": rowData.is_product_added_to_cart,
+                  "bg-bb-purple text-white":
+                    !rowData.is_product_added_to_cart &&
+                    rowData.is_product_instock,
+                  "bg-bb-gray-500 text-black":
+                    rowData.is_product_added_to_cart ||
+                    !rowData.is_product_instock,
                 }
               )}
               onClick={() => addToCart(rowData.id)}
-              disabled={rowData.is_product_added_to_cart}
+              disabled={
+                rowData.is_product_added_to_cart || !rowData.is_product_instock
+              }
             >
-              {rowData.is_product_added_to_cart
-                ? "Product is already in the cart"
-                : "Add to cart"}
+              {rowData.is_product_instock
+                ? rowData.is_product_added_to_cart
+                  ? "Product is already in the cart"
+                  : "Add to cart"
+                : "Product out of stock"}
             </button>
           </td>
         </tr>
