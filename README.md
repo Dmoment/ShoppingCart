@@ -20,14 +20,6 @@ The goal of the exercise is to create a simple checkout system that fulfills the
 - Brief written summary of approach, assumptions, caveats and notes
 - The boilerplate repo uses rails' default test framework, but feel free to use rspec if desired.
 
-Notes:
-- The #1 thing we're looking for in this assignment is your ability to write production-quality code under constraints, followed by your ability to communicate your work and incorporate feedback/ideas. If you feel constrained on time in order to get to completion, please let us know. As general guidance, we'd rather have you put in your best work into an incomplete assignment, vs. complete the assignment in a rushed manner.
-- Please build a Rails-based REST API as opposed to other options, such as GraphQL. We'd like for the assignment to showcase as much of your own Rails and React work as possible.
-- No attention will be paid to the look and feel of this task. Pages can be plain HTML.
-- Feel free to use seeds to create required data. No administration is required.
-- We recommend that you break down the task into smaller meaningful GitHub issues first.
-- For each component of the task, please open a new PR and assign to the engineer you were assigned in the email as the reviewer whenever a PR is ready; do not merge your PRs directly to the main branch. Please keep 3 PRs open at most at any time; and feel free to remind to review your work if there's a delay.
-
 ### Local Development Setup
 
 #### Prerequisites:
