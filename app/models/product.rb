@@ -17,6 +17,8 @@ private
   end
 
   def optimistic_locking_for_instock
+    return if self.original_locking_version.nil?
+
     if self.original_locking_version <  self.locking_version
       self.original_locking_version = nil
       raise ActiveRecord::StaleObjectError
