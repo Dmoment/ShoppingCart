@@ -2,7 +2,7 @@
   "name": "plate",
   "private": true,
   "engines": {
-    "node": ">=10.15.3",
+    "node": "16.x",
     "npm": ">=6",
     "yarn": ">=1.15.2"
   },
